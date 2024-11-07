@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Badminton Team</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Donate to Support Our Team</h1>
+    </header>
+
+    <section id="donate">
+        <h2>Your Donation Makes a Difference!</h2>
+        
+        <!-- PayPal Donation Button -->
+        <div id="paypal-button-container"></div>
+        
+        <p>Thank you for your generous support!</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Badminton Team | Thank you for your support!</p>
+    </footer>
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+    <script>
+        // PayPal button rendering
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '10.00' // Set the default donation amount here
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Thank you, ' + details.payer.name.given_name + ', for your donation!');
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
